@@ -1,0 +1,342 @@
+.full-booking-form{
+   background-color: #fff;
+   padding: 20px 20px;
+   border-radius: 10px;
+}
+
+.flatpickr-day.flatpickr-disabled {
+   opacity: 0.6;
+   color: grey !important;
+   background-color: #f0f0f0;
+   cursor: pointer !important;
+}
+
+/* Убираем hover-эффект для недоступных дат */
+.flatpickr-day.flatpickr-disabled:hover {
+   background-color: #f0f0f0;
+   color: grey;
+}
+
+.flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange, .flatpickr-day.selected.inRange, .flatpickr-day.startRange.inRange, .flatpickr-day.endRange.inRange, .flatpickr-day.selected:focus, .flatpickr-day.startRange:focus, .flatpickr-day.endRange:focus, .flatpickr-day.selected:hover, .flatpickr-day.startRange:hover, .flatpickr-day.endRange:hover, .flatpickr-day.selected.prevMonthDay, .flatpickr-day.startRange.prevMonthDay, .flatpickr-day.endRange.prevMonthDay, .flatpickr-day.selected.nextMonthDay, .flatpickr-day.startRange.nextMonthDay, .flatpickr-day.endRange.nextMonthDay {
+   background: #305261 !important;
+   -webkit-box-shadow: none;
+   box-shadow: none;
+   color: #fff;
+   border-color: #305261 !important;
+}
+.form-booking{
+   position: relative;
+   display: flex;
+   justify-content: center;
+   
+}
+
+label, input{
+   display: block;
+}
+
+.form-input{
+   width: 100%;
+   padding: 0.375rem 0.75rem;
+   font-size: 1rem;
+   font-weight: 400;
+   line-height: 1;
+   color: var(--bs-body-color);
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   appearance: none;
+   background-color: var(--bs-body-bg);
+   background-clip: padding-box;
+   border: var(--bs-border-width) solid var(--bs-border-color);
+   border-radius: var(--bs-border-radius) !important;
+   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+
+.apartament-form .form-group{
+   
+   box-shadow: 11px 12px 56px 27px rgba(34, 60, 80, 0.2);
+}
+
+
+/* @media */
+
+@media (max-width: 992px) {
+   .form-group{
+       top: 5rem;
+   }
+}
+
+/* Общие стили формы */
+.full-booking-form{
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+/* Стили для DIV вместо INPUT */
+.form-input {
+    display: block;
+    width: 100%;
+    padding: 12px 15px;
+    background-color: #fff;
+    border: 1px solid #e1e1e1;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+/* Стили для div с датами */
+.date-display {
+    position: relative;
+    padding-left: 40px;
+    cursor: pointer;
+    user-select: none;
+    min-height: 45px;
+    display: flex;
+    align-items: center;
+}
+
+.date-display:hover {
+    border-color: #26424e;
+}
+
+.date-display:before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>');
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+/* Стили для счетчиков */
+.input-group {
+    display: flex;
+    align-items: stretch;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid #e1e1e1;
+}
+
+.btn-minus,
+.btn-plus {
+    flex: 0 0 45px;
+    width: 45px;
+    height: 45px;
+    background-color: #f5f7f9;
+    border: none;
+    color: #333;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-minus:hover,
+.btn-plus:hover {
+    background-color: #e9ecf0 !important;
+}
+
+.counter-display {
+    flex: 1;
+    text-align: center;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Стили кнопки */
+.book-btn{
+    background-color: #305261;
+    color: white;
+    border: none;
+    padding: 20px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 17px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.book-btn:hover {
+    background-color: #26424e;
+}
+
+/* Стили для flatpickr календаря с русской локализацией */
+.flatpickr-calendar {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+    border-radius: 8px !important;
+    border: none !important;
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif !important;
+    padding: 0 !important;
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange,
+.flatpickr-day.selected:focus,
+.flatpickr-day.startRange:focus,
+.flatpickr-day.endRange:focus {
+    background: #26424e !important;
+    border-color: #26424e !important;
+}
+
+.flatpickr-day.selected:hover,
+.flatpickr-day.startRange:hover,
+.flatpickr-day.endRange:hover {
+    background: #26424e !important;
+    border-color: #26424e !important;
+}
+
+.flatpickr-day.inRange, 
+.flatpickr-day.inRange:hover {
+    background: #e6f4fa !important;
+    border-color: #cceafd !important;
+    box-shadow: -5px 0 0 #e6f4fa, 5px 0 0 #e6f4fa;
+}
+
+.flatpickr-day.today {
+    border-color: #017bbb;
+}
+
+.flatpickr-current-month {
+    font-size: 115% !important;
+    padding: 10px 0 0 0 !important;
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+    font-weight: 500 !important;
+}
+
+.flatpickr-weekdaycontainer {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.date-selected {
+    background-color: #f0f8ff;
+    border-color: #305261 !important;
+}
+.flatpickr-weekday {
+    color: #305261 !important;
+    font-weight: 600 !important;
+    font-size: 90% !important;
+    width: 14.28% !important;
+}
+
+.flatpickr-months .flatpickr-prev-month:hover svg,
+.flatpickr-months .flatpickr-next-month:hover svg {
+    fill: #305261 !important;
+}
+
+.input-group:hover{
+    border-color: #26424e;
+}
+
+/* Адаптивные стили для мобильных устройств */
+@media (max-width: 767px) {
+    /* Стили для календаря на мобильных устройствах */
+    .flatpickr-calendar {
+        width: 100% !important;
+        max-width: 320px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+    }
+    
+    /* Контейнер дней */
+    .flatpickr-days {
+        width: 100% !important;
+    }
+    
+    /* Контейнер месяца */
+    .dayContainer {
+        width: 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Стили для ячеек календаря */
+    .flatpickr-day {
+        max-width: 38px !important;
+        height: 38px !important;
+        line-height: 38px !important;
+    }
+    
+    /* Исправление дней недели */
+    .flatpickr-weekdays {
+        height: 28px !important;
+        display: flex !important;
+        align-items: center !important;
+        width: 100% !important;
+    }
+    
+    .flatpickr-weekdaycontainer {
+        display: flex !important;
+        width: 100% !important;
+        justify-content: space-around !important;
+    }
+    
+    span.flatpickr-weekday {
+        display: inline-block !important;
+        width: 14.28% !important;
+        font-size: 80% !important;
+        text-align: center !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Кнопки навигации по месяцам */
+    .flatpickr-months {
+        padding-bottom: 5px !important;
+    }
+    
+    /* Название месяца */
+    .flatpickr-current-month {
+        font-size: 100% !important;
+    }
+    
+    /* Улучшение отзывчивости формы */
+    .book-btn {
+        width: 100%;
+        padding: 15px 10px;
+    }
+    
+    /* Выравнивание элементов формы */
+    .date-display {
+        padding-left: 35px;
+        font-size: 13px;
+    }
+    
+    /* Увеличиваем размер тача для кнопок +/- */
+    .btn-minus, .btn-plus {
+        flex: 0 0 40px;
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* Дополнительные стили для очень маленьких экранов */
+@media (max-width: 359px) {
+    .flatpickr-calendar {
+        max-width: 290px !important;
+    }
+    
+    .flatpickr-day {
+        max-width: 34px !important;
+        height: 34px !important;
+        line-height: 34px !important;
+    }
+}

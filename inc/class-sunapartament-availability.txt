@@ -1,0 +1,132 @@
+<?php
+if (!class_exists('sunApartamentAvailability')) {
+    class sunApartamentAvailability {
+        public function register() {
+            add_action('admin_menu', [$this, 'add_admin_menu']);
+            add_action('wp_ajax_update_apartament_availability', [$this, 'update_apartament_availability']);
+        }
+
+        public function add_admin_menu() {
+            add_menu_page(
+                'Управление доступностью апартаментов',
+                'Доступность апартаментов',
+                'manage_options',
+                'apartament-availability',
+                [$this, 'render_apartament_availability_page'],
+                'dashicons-calendar-alt',
+                6
+            );
+        }
+
+        
+        // Обработчик AJAX-запросов
+        public function update_apartament_availability() {
+            if (isset($_POST['apartament_id']) && isset($_POST['date'])) {
+                $apartament_id = intval($_POST['apartament_id']);
+                $date = sanitize_text_field($_POST['date']);
+        
+                // Получаем текущие занятые даты
+                $booked_dates = get_post_meta($apartament_id, '_apartament_availability', true);
+                $booked_dates = $booked_dates ? json_decode($booked_dates, true) : [];
+        
+                // Добавляем или удаляем дату
+                if (in_array($date, $booked_dates)) {
+                    $booked_dates = array_diff($booked_dates, [$date]); // Удаляем дату
+                } else {
+                    $booked_dates[] = $date; // Добавляем дату
+                }
+        
+                // Сохраняем обновленные данные
+                update_post_meta($apartament_id, '_apartament_availability', json_encode($booked_dates));
+        
+                wp_send_json_success();
+            } else {
+                wp_send_json_error();
+            }
+        }
+        
+
+        public function render_apartament_availability_page() {
+            if (isset($_GET['apartament_id'])) {
+                $apartament_id = intval($_GET['apartament_id']);
+                $apartament = get_post($apartament_id);
+        
+                if ($apartament) {
+                    // Получаем занятые даты из мета-поля
+                    $booked_dates = get_post_meta($apartament_id, '_apartament_availability', true);
+                    $booked_dates = $booked_dates ? json_decode($booked_dates, true) : [];
+        
+                    echo '<div class="wrap">';
+                    echo '<h1>Управление доступностью: ' . esc_html($apartament->post_title) . '</h1>';
+                    echo '<div id="calendar"></div>';
+                    echo '</div>';
+        
+                    // JavaScript для календаря
+                    echo '<script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            var calendarEl = document.getElementById("calendar");
+                            var calendar = new FullCalendar.Calendar(calendarEl, {
+                                initialView: "dayGridMonth",
+                                selectable: true,
+                                events: ' . json_encode($this->format_booked_dates($booked_dates)) . ',
+                                dateClick: function(info) {
+                                    if (confirm("Вы хотите изменить статус даты " + info.dateStr + "?")) {
+                                        // Отправляем AJAX-запрос для обновления статуса даты
+                                        jQuery.post("' . admin_url('admin-ajax.php') . '", {
+                                            action: "update_apartament_availability",
+                                            apartament_id: ' . $apartament_id . ',
+                                            date: info.dateStr
+                                        }, function(response) {
+                                            if (response.success) {
+                                                location.reload(); // Перезагружаем страницу
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                            calendar.render();
+                        });
+                    </script>';
+                } else {
+                    echo '<div class="wrap"><p>Апартамент не найден.</p></div>';
+                }
+            } else {
+                // Отображение списка всех квартир
+                $apartaments = get_posts([
+                    'post_type' => 'apartament',
+                    'numberposts' => -1,
+                ]);
+        
+                echo '<div class="wrap">';
+                echo '<h1>Управление доступностью апартаментов</h1>';
+                echo '<ul>';
+                foreach ($apartaments as $apartament) {
+                    echo '<li>';
+                    echo '<a href="' . admin_url('admin.php?page=apartament-availability&apartament_id=' . $apartament->ID) . '">' . esc_html($apartament->post_title) . '</a>';
+                    echo '</li>';
+                }
+                echo '</ul>';
+                echo '</div>';
+            }
+        }
+        
+        // Форматируем занятые даты для FullCalendar
+        private function format_booked_dates($booked_dates) {
+            $events = [];
+            foreach ($booked_dates as $date) {
+                $events[] = [
+                    'title' => 'Занято',
+                    'start' => $date,
+                    'color' => '#ff0000' // Красный цвет для занятых дат
+                ];
+            }
+            return $events;
+        }
+        
+    }
+}
+
+if (class_exists('sunApartamentAvailability')) {
+    $sunApartamentAvailability = new sunApartamentAvailability();
+    $sunApartamentAvailability->register();
+}

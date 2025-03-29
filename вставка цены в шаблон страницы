@@ -1,0 +1,20 @@
+<?php
+if (class_exists('sunApartamentcpt')) {
+    // Получаем цены для каждого месяца
+    $prices = [];
+    for ($month = 1; $month <= 12; $month++) {
+        $prices[$month] = get_post_meta(get_the_ID(), 'sunapartament_month_' . $month . '_price', true);
+    }
+
+    // Выводим текущую цену
+    $current_price = $sunApartamentcpt->display_current_price(get_the_ID());
+    echo '<div id="current-price">Текущая цена: ' . $current_price . '</div>';
+
+    // Передаем цены в JavaScript
+    echo '
+    <script type="text/javascript">
+        var sunApartamentPrices = ' . json_encode($prices) . ';
+    </script>
+    ';
+}
+?>
